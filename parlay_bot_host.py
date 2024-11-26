@@ -56,7 +56,7 @@ async def add_pick(ctx, league: str, *, pick):
     else:
         picks[user_id] = pick
         save_picks()
-        await ctx.send(f"{league.upper()} pick added: {pick}. {snarky_response} \nAvailable commands for 'NFL' & 'college':\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
+        await ctx.send(f"{league.upper()} pick added: {pick}. {snarky_response} \nAvailable commands for (NFL / CFB):\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
 
 @bot.command(name='editpick')
 async def edit_pick(ctx, league: str, *, new_pick):
@@ -65,7 +65,7 @@ async def edit_pick(ctx, league: str, *, new_pick):
     if user_id in picks:
         picks[user_id] = new_pick
         save_picks()
-        await ctx.send(f"{league.upper()} pick updated to: {new_pick}. {snarky_response} \nAvailable commands for 'NFL' & 'college':\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
+        await ctx.send(f"{league.upper()} pick updated to: {new_pick}. {snarky_response} \nAvailable commands (NFL / CFB):\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
     else:
         await ctx.send(f"You don't have a {league.upper()} pick yet. Use `/addpick` to add one.\nAvailable commands for 'NFL' & 'college':\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
 
