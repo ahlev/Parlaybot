@@ -76,24 +76,24 @@ async def delete_pick(ctx, league: str):
     if user_id in picks:
         del picks[user_id]
         save_picks()
-        await ctx.send(f"Your {league.upper()} pick has been deleted. {snarky_response} \nAvailable commands for 'NFL' & 'college':\n'/addpick' <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
+        await ctx.send(f"Your {league.upper()} pick has been deleted. {snarky_response} \nAvailable commands (NFL / CFB):\n'/addpick' <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
     else:
-        await ctx.send(f"You don't have a {league.upper()} pick to delete. \nAvailable commands for 'NFL' & 'college':\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
+        await ctx.send(f"You don't have a {league.upper()} pick to delete. \nAvailable commands (NFL / CFB):\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
 
 @bot.command(name='showpicks')
 async def show_picks(ctx, league: str):
     picks = nfl_picks if league.lower() == 'nfl' else cfb_picks
     if not picks:
-        await ctx.send(f"No {league.upper()} picks have been submitted yet. \nAvailable commands for 'NFL' & 'college':\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
+        await ctx.send(f"No {league.upper()} picks have been submitted yet. \nAvailable commands (NFL / CFB):\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
     else:
         response = "\n".join([f"<@{user}>: {pick}" for user, pick in picks.items()])
-        await ctx.send(f"Current {league.upper()} picks:\n{response} \nAvailable commands for 'NFL' & 'college':\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
+        await ctx.send(f"Current {league.upper()} picks:\n{response} \nAvailable commands (NFL / CFB):\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
 
 @bot.command(name='finalizeparlay')
 @commands.has_permissions(administrator=True)
 async def finalize_parlay(ctx):
     if not nfl_picks and not cfb_picks:
-        await ctx.send("No picks to finalize. What a disappointing week! \nAvailable commands for 'NFL' & 'college':\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
+        await ctx.send("No picks to finalize. What a disappointing week! \nAvailable commands (NFL / CFB):\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
     else:
         response = ""
         if nfl_picks:
@@ -107,14 +107,14 @@ async def finalize_parlay(ctx):
 async def set_admin(ctx, user: discord.Member):
     global admin_id
     admin_id = user.id
-    await ctx.send(f"Admin privileges have been granted to <@{admin_id}> for managing weekly resets. \nAvailable commands for 'NFL' & 'college':\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
+    await ctx.send(f"Admin privileges have been granted to <@{admin_id}> for managing weekly resets. \nAvailable commands (NFL / CFB):\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
 
 @bot.command(name='adminreset')
 async def admin_reset(ctx):
     if ctx.author.id == admin_id:
         await trigger_weekly_reset(ctx)
     else:
-        await ctx.send("You do not have permission to trigger the weekly reset. \nAvailable commands for 'NFL' & 'college':\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
+        await ctx.send("You do not have permission to trigger the weekly reset. \nAvailable commands (NFL / CFB):\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
 
 async def trigger_weekly_reset(ctx):
     global nfl_picks, cfb_picks
@@ -124,7 +124,7 @@ async def trigger_weekly_reset(ctx):
         nfl_picks.clear()
         cfb_picks.clear()
         save_picks()
-        await ctx.send(f"Weekly reset has been triggered. All previous picks have been cleared. {mentions}, the new week has started! \nAvailable commands for 'NFL' & 'college':\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
+        await ctx.send(f"Weekly reset has been triggered. All previous picks have been cleared. {mentions}, the new week has started! \nAvailable commands (NFL / CFB):\n/addpick <league> <pick>, \n/editpick <league> <new_pick>, \n/deletepick <league>, \n/showpicks <league>")
     else:
         await ctx.send("No picks were found, but the weekly reset has been performed.")
 
